@@ -41,13 +41,17 @@ public class LinkedListDemo {
     	l.remove(0);
     	l.print();
     	
-    	Node<Integer> head = l.getHead();
-    	Node<Integer> tail = l.getTail();
-    	tail.setPrev(Node<Integer> s);
+    	Node<Integer> current = l.getHead();
+
     	
-    	Node<Integer> next = head.getNext();
-   
-    	
+    	while(current != null) { //loop thorugh everything
+    		int val = current.getValue();
+    		current.setValue(val*2);
+    		System.out.print(current.getValue()+" ->");
+    		current = current.getNext();    		
+    	}
+
+    
     }
 
 }
