@@ -75,7 +75,7 @@ public class SpiesOnATrain {
 			}
 		}
 
-		return ""+spy;
+		return ""+spy.trim();
 
 	}
 

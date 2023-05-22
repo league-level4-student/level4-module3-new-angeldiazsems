@@ -245,7 +245,7 @@ public class BinaryTree<T extends Comparable<T>> {
     //Helper methods
     
     protected int maxLevel(Node<T> node) {
-        if (node == null)
+        if (node == null) 
             return 0;
 
         return Math.max(maxLevel(node.getLeft()), maxLevel(node.getRight()))
