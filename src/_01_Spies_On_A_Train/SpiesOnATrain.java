@@ -49,27 +49,36 @@ public class SpiesOnATrain {
 			}
 		}
 
+		
+		System.out.println("pie flavor :"+pieFlavor+", phone: "+phoneModel+" brief :"+briefcaseColor);
 		Node<TrainCar> current = train.getHead();
 		while (current != null) {
 			String evidence = current.getValue().questionPassenger();
 			String[] spilt = evidence.split(" ");
 			currentPerson = spilt[7];
 			suspect = spilt[13];
-
+			System.out.println(evidence);
+			
 			if (evidence.contains("pie") && evidence.contains(pieFlavor)) {
-				results.put(suspect, number + 1);
+				results.put(suspect, results.size()-1);
+				System.out.println("Putting "+suspect+", number is :"+number);
 			} else if (evidence.contains("phone") && evidence.contains(phoneModel)) {
-				results.put(suspect, number + 1);
+				results.put(suspect, results.size()-1);
+				System.out.println("Putting "+suspect+", number is :"+number);
+
 			} else if (evidence.contains("briefcase") && evidence.contains(briefcaseColor)) {
-				results.put(suspect, number + 1);
-			} else {
-				current = current.getNext();
-			}
+				results.put(suspect, results.size()-1);
+				System.out.println("Putting "+suspect+", number is :"+number);
+
+			} 
+			current = current.getNext();
+			System.out.println("nobody sus");
 
 		}
 
 		for (String name : results.keySet()) {
 			int num = results.get(name);
+			System.out.println("name :"+name+", num :"+num);
 			if (num == 3) {
 				spy = name;
 			}

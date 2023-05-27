@@ -34,13 +34,27 @@ public class RainbowZombieCongaLine {
 	// Make the passed in zombie the first Zombie in the conga line!
 	public void engine(Zombie dancer) {
 		Node<Zombie> first = new Node<Zombie>(dancer);
-		congaLine.setHead(first);
+		Node<Zombie> current = congaLine.getHead();
+		
+		
+		
+		
+		current.setPrev(first);
+		first.setNext(current);
+		first.setPrev(null);
+		
 	}
 
 	// Make the passed in zombie the last Zombie in the conga line!
 	public void caboose(Zombie dancer) {
 		Node<Zombie> last = new Node<Zombie>(dancer);
-		congaLine.setTail(last);
+		Node<Zombie> tail = congaLine.getTail();
+		
+		last.setNext(null);
+		last.setPrev(tail);
+		tail.setNext(last);
+		
+
 	}
 
 	// Place the zombie at the designated position in the conga line!
@@ -76,6 +90,8 @@ public class RainbowZombieCongaLine {
 			if (current.getValue().getZombieHatColor().equals(hatColor)) {
 				current.getPrev().setNext(next);
 				next.setPrev(current.getPrev());
+				current.setNext(null);
+				current.setPrev(null);
 			}
 			current = current.getNext();
 			next = current.getNext();
@@ -114,7 +130,8 @@ public class RainbowZombieCongaLine {
 		ZombieHatColor hatColor = dancer.getZombieHatColor();
 		
 		
-		Node<Zombie> current = congaLine.getHead();
+		Node<Zombie> head = congaLine.getHead();
+		Node<Zombie> tail = congaLine.getTail();
 		
 		Node<Zombie> start = new Node<Zombie>(new Zombie(hatColor));
 		Node<Zombie> middle = new Node<Zombie>(new Zombie(hatColor));
@@ -139,10 +156,14 @@ public class RainbowZombieCongaLine {
 		Node<Zombie> violet = new Node<Zombie>(new Zombie(ZombieHatColor.V));
 		
 		Node<Zombie> zoomer = new Node<Zombie>(dancer);
+		Node<Zombie> head = congaLine.getHead();
+		Node<Zombie> tail = congaLine.getTail();
+		if(head == null) {
 		congaLine.setHead(zoomer);
 		
 		
-		congaLine.setTail(red);
+		zoomer.setNext(red);
+		red.setPrev(zoomer);
 		red.setNext(orange);
 		orange.setPrev(red);
 		orange.setNext(yellow);
@@ -155,7 +176,29 @@ public class RainbowZombieCongaLine {
 		indigo.setPrev(blue);
 		indigo.setNext(violet);
 		violet.setNext(null);
-		
+		}
+		else {
+			head.setPrev(zoomer);
+			zoomer.setNext(head);
+			zoomer.setPrev(null);
+			
+			tail.setNext(red);
+			red.setPrev(tail);
+			red.setNext(orange);
+			orange.setPrev(red);
+			orange.setNext(yellow);
+			yellow.setPrev(orange);
+			yellow.setNext(green);
+			green.setPrev(yellow);
+			green.setNext(blue);
+			blue.setPrev(green);
+			blue.setNext(indigo);
+			indigo.setPrev(blue);
+			indigo.setNext(violet);
+			congaLine.setTail(violet);
+			violet.setNext(null);
+			
+		}
 		
 
 	}
