@@ -34,6 +34,34 @@ public class BinaryTreeDemo {
 
     public static void main(String[] args) {
 
+    	BinaryTree<Integer> tree = new BinaryTree<Integer>();
+    	Node<Integer> node = new Node<Integer>(null);
+    	tree.insert(8);
+    	tree.insert(10);
+    	tree.insert(16);
+    	tree.insert(90);
+    	tree.insert(7);
+    	tree.insert(5);
+    	tree.insert(2);
+    	tree.insert(1);
+    	tree.insert(4);
+    	tree.printVertical();
+    	
+    	Node<Integer> current = tree.getRoot();
+    	System.out.println(tree.maxLevel(current));
+    	Node<Integer> left = current.getLeft();
+    	
+    	
+    	while(current != null) {
+    		current.setLeft(left);
+    	}
+    	
+    	
+    	tree.search(7);
+    	tree.recursiveSearch(current, 7);
+    	tree.recursiveDelete(current, 5);
+    	tree.printVertical();
+
     }
 
 }
