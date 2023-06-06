@@ -70,11 +70,19 @@ public class RainbowZombieCongaLine {
 		int count = 0;
 		while (current != null) {
 			if (count == position) {
-				current.setNext(zoom);
-				next.setPrev(zoom);
-				zoom.setPrev(current);
-				zoom.setNext(next);
-				break;
+				if (next != null && current.getPrev() != null) {
+					current.setNext(zoom);
+					next.setPrev(zoom);
+					zoom.setPrev(current);
+					zoom.setNext(next);
+					break;
+				} else if (next == null) {
+					caboose(dancer);
+					break;
+				} else if (current.getPrev() == null) {
+					engine(dancer);
+					break;
+				}
 			}
 			current = current.getNext();
 			next = current.getNext();
@@ -92,16 +100,32 @@ public class RainbowZombieCongaLine {
 		Node<Zombie> next = current.getNext();
 
 		while (current != null) {
-			if (current.getValue().getZombieHatColor().equals(hatColor)) {
-				current.getPrev().setNext(next);
-				next.setPrev(current.getPrev());
 
-				current = next.getNext();
-				next = current.getNext();
-			} else {
-				current = current.getNext();
-				next = current.getNext();
+			if (current.getValue().getZombieHatColor().equals(hatColor)) {
+				System.out.println("removing :" + current.getValue());
+				if (current.getPrev() != null && next != null) {
+					current.getPrev().setNext(next);
+					next.setPrev(current.getPrev());
+					next = current;
+				} else if (current.getPrev() == null) {
+					if (next != null) {
+						next.setPrev(null);
+					}
+					congaLine.setHead(next);
+					next = current;
+
+				} else if (next == null) {
+					if (current.getPrev() != null) {
+						current.getPrev().setNext(null);
+					}
+					congaLine.setTail(current.getPrev());
+
+				}
 			}
+			current = current.getNext();
+				if(current != null) {
+			next = current.getNext();
+				}
 
 		}
 
@@ -122,17 +146,15 @@ public class RainbowZombieCongaLine {
 					current.getPrev().setNext(next);
 					next.setPrev(current.getPrev());
 					break;
-				}
-				else if(current.getPrev() == null && next != null) { //removing the first one
+				} else if (current.getPrev() == null && next != null) { // removing the first one
 					next.setPrev(null);
 					congaLine.setHead(next);
 					break;
-				}
-				else if(current.getPrev() != null && next == null) { //removing the last one
+				} else if (current.getPrev() != null && next == null) { // removing the last one
 					current.setNext(null);
 					congaLine.setTail(current);
 					break;
-				}	
+				}
 			}
 			current = current.getNext();
 			next = current.getNext();

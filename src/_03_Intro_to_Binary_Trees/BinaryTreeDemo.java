@@ -48,20 +48,25 @@ public class BinaryTreeDemo {
     	tree.printVertical();
     	
     	Node<Integer> current = tree.getRoot();
-    	System.out.println(tree.maxLevel(current));
-    	Node<Integer> left = current.getLeft();
-    	
-    	
-    	while(current != null) {
-    		current.setLeft(left);
-    	}
-    	
-    	
-    	tree.search(7);
-    	tree.recursiveSearch(current, 7);
-    	tree.recursiveDelete(current, 5);
+    	loop(current);
+ 	
+       	tree.recursiveSearch(current, 7);
     	tree.printVertical();
 
     }
 
+    public static void loop(Node<Integer> current) {
+    	if(current == null) {
+    		return;
+    	}
+    	System.out.println(current.getValue());
+    	current.setValue(current.getValue()*10);
+    	loop(current.getRight());
+    	loop(current.getLeft());
+ 
+    }
+    
+    
+    
+    
 }
