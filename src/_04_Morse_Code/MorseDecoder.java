@@ -67,23 +67,46 @@ public class MorseDecoder {
      * 
      */
     void decode() {
-        String morseCode = "-.-- --- ..- .- .-. . .- -- .- --.. .. -. --.";
+    	Node<MorseCode> current = mcTree.getRoot();
+    	alphabet(current);
+    	
+    	String morseCode = "";
+    	do {
         Scanner scan = new Scanner(System.in);
+        System.out.println(" ------------------ ");
+        System.out.println("SAY SOMETHING IN MORSE CODE");
+        System.out.println("");
+        morseCode = scan.nextLine();
+        print(morseCode);
+    	}
+    	while(!morseCode.equals("stop"));
         
-        
-        Node<MorseCode> f = mcTree.getRoot();
-        loop(f);
     }
-
-    void loop(Node<MorseCode> current) {
+    
+    void print(String morseCode) {
+        String[] letters = morseCode.split(" ");
+        
+        for(int i = 0; i < letters.length; i++) { //translate all letters
+        	MorseCode morse = new MorseCode(letters[i]);
+        	letters[i] = mcTree.search(morse).getValue().toString();
+        }
+        
+        for(String s : letters) { //print to console
+        	System.out.print(s);
+        }
+        System.out.println(" ");
+    }
+    
+    public static void alphabet(Node<MorseCode> current) {
     	if(current == null) {
     		return;
     	}
-    	System.out.println(current.getValue().toString());
-    	loop(current.getRight());
-    	loop(current.getLeft());
+    	if(!current.getValue().toString().equals("start")) {
+    	System.out.println(current.getValue().getDecoded()+" is "+current.getValue().getCoded()+" in morse code");
+    	}
+    	alphabet(current.getRight());
+    	alphabet(current.getLeft());
+ 
     }
-    
-    
     
 }
