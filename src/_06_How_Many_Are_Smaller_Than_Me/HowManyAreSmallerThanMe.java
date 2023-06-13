@@ -20,37 +20,32 @@ public class HowManyAreSmallerThanMe {
 
 		AVLNode<Integer> current = avlTree.getRoot();
 	
-		Scanner scan = new Scanner(System.in);
-		int count = 20;
-		loop(current, me);
-		int s = scan.nextInt();
-		System.out.println(s);
-		scan.close();
-		
-		
-		
+		int count = loop(current, me);
 
-		return s;
+		return count;
 
 	}
 
-	public static void loop(AVLNode<Integer> current, int me) {
+	public static int loop(AVLNode<Integer> current, int me) {
 		int count = 0;
 		if (current == null) {
-			return;
+			return 0 ;
 		}
-		if (current.getValue() > me) {
-			System.out.println(current.getValue() + " is greater than " + me);
-		} else if (current.getValue() == me) {
-			System.out.println(current.getValue() + " is equal to " + me);
-		} else if (current.getValue() < me) {
+		if(current.getValue() < me) {
 			System.out.println(current.getValue() + " is less than " + me);
 			count++;
 		}
 
+		count+= loop(current.getRight(), me);
+		count += loop(current.getLeft(), me);
+		return count;
+	}
+	public static void looping(AVLNode<Integer> current, int me) {
+		if (current == null) {
+			return;
+		}
+
 		loop(current.getRight(), me);
 		loop(current.getLeft(), me);
-
 	}
-
 }

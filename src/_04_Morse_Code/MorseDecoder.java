@@ -97,7 +97,7 @@ public class MorseDecoder {
         System.out.println(" ");
     }
     
-    public static void alphabet(Node<MorseCode> current) {
+    void alphabet(Node<MorseCode> current) {
     	if(current == null) {
     		return;
     	}
